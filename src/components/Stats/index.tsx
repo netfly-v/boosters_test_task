@@ -37,7 +37,7 @@ export const Stats: React.FC = () => {
         <ChartBlock stats={stats} labels={days} regionsData={regions} />
       ) : (
         <Typography
-          sx={{marginTop: '50px', color: '#809f39'}}
+          sx={{marginTop: '50px', color: '#809f39', '@media (max-width: 640px)': {textAlign: 'center'}}}
           variant="h6">{`Choose 'Date from' and 'Date to' to enable chart`}</Typography>
       )}
     </Box>

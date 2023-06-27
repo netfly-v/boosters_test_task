@@ -32,7 +32,6 @@ export const useGetStats = () => {
       setStats(res as StatsT[]);
       setLoading(false);
     } catch (e) {
-      console.log(e);
       setLoading(false);
     }
   };

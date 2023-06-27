@@ -1,6 +1,11 @@
-# Getting Started with Create React App
+# How to use this app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is built using React, Typescript, MUI, styled-components, Chart.js. All data comes from https://covid-api.com/api/.
+
+All instructions about how to start this repo on your local side, you will find in this readme file. All instructions about how to use this app you will find in the About page of the project (please click a link below)
+
+## View this app:
+You can view this app on Vercel https://boosters-test-task.vercel.app/
 
 ## Available Scripts
 

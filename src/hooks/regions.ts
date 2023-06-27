@@ -13,7 +13,6 @@ export const useGetRegions = () => {
       setRegions(res?.data as RegionsT[]);
       setLoading(false);
     } catch (e) {
-      console.log(e);
       setLoading(false);
     }
   };

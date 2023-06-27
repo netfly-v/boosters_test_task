@@ -12,13 +12,22 @@ export const Sidebar: React.FC = () => {
 
   return (
     <List
-      sx={{width: '100%', maxWidth: 360, bgcolor: '#a9c3ba', paddingTop: 0}}
+      sx={{
+        width: '100%',
+        maxWidth: 360,
+        bgcolor: '#a9c3ba',
+        paddingTop: 0,
+        '@media (max-width: 1024px)': {maxWidth: 180},
+        '@media (max-width: 640px)': {maxWidth: '100%', display: 'flex'},
+      }}
       component="nav"
       aria-labelledby="nested-list-subheader">
-      <ListItemButton onClick={() => handleClick(route.main)}>
+      <ListItemButton sx={{'@media (max-width: 640px)': {textAlign: 'center'}}} onClick={() => handleClick(route.main)}>
         <ListItemText primary="Main" />
       </ListItemButton>
-      <ListItemButton onClick={() => handleClick(route.about)}>
+      <ListItemButton
+        sx={{'@media (max-width: 640px)': {textAlign: 'center'}}}
+        onClick={() => handleClick(route.about)}>
         <ListItemText primary="About" />
       </ListItemButton>
     </List>

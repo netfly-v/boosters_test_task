@@ -15,6 +15,7 @@ import locale from 'date-fns/locale/en-GB';
 import {RegionsT} from '../../constants/types';
 import {useSearchParams} from 'react-router-dom';
 import {format} from 'date-fns';
+import {mockRegionsData} from '../../constants/common';
 
 type FiltersBlockProps = {
   getStats: (dateFrom: Date, dateTo: Date, iso?: string) => void;
@@ -56,27 +57,37 @@ export const FiltersBlock: React.FC<FiltersBlockProps> = ({getStats, regionsData
         justifyContent: 'center',
         width: '100%',
         paddingTop: '8px',
+        '@media (max-width: 1024px)': {padding: '0 10px'},
+        '@media (max-width: 640px)': {
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          minHeight: '180px',
+        },
       }}>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={locale}>
         <DateRangePicker
           localeText={{start: 'Date from', end: 'Date to'}}
           value={dateRangeValue as DateRange<Date>}
           onChange={(v) => onChooseDates(v)}
+          disableFuture
         />
       </LocalizationProvider>
       <FormControl sx={{marginLeft: '20px', minWidth: '200px'}}>
         <InputLabel>Choose country</InputLabel>
         <Select value={region || ''} onChange={onChooseRegion} label="Region">
           {loading && <CircularProgress color="inherit" />}
-          {regionsData ? (
-            regionsData.map((r) => (
-              <MenuItem key={r.name} value={r.iso}>
-                {r.name}
-              </MenuItem>
-            ))
-          ) : (
-            <MenuItem value={'USA'}>US</MenuItem>
-          )}
+          {regionsData
+            ? regionsData.map((r) => (
+                <MenuItem key={r.name} value={r.iso}>
+                  {r.name}
+                </MenuItem>
+              ))
+            : mockRegionsData.map((r) => (
+                <MenuItem key={r.name} value={r.iso}>
+                  {r.name}
+                </MenuItem>
+              ))}
         </Select>
       </FormControl>
       <Button variant="contained" sx={{marginLeft: '20px'}} onClick={onShowCharts} disabled={isDisabled}>
