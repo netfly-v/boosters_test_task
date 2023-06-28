@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
   SelectChangeEvent,
   Box,
@@ -29,11 +29,11 @@ export const FiltersBlock: React.FC<FiltersBlockProps> = ({getStats, regionsData
   const dateTo = new Date(searchParams.get('date_to') as string);
   const region = searchParams.get('region') as string;
 
-  useEffect(() => {
-    if (searchParams.has('date_from') && searchParams.has('date_to')) {
-      getStats(dateFrom, dateTo, region);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (searchParams.has('date_from') && searchParams.has('date_to')) {
+  //     getStats(dateFrom, dateTo, region);
+  //   }
+  // }, []);
 
   const onChooseRegion = (event: SelectChangeEvent) => {
     searchParams.set('region', event.target.value);
