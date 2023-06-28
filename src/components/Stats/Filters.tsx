@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   SelectChangeEvent,
   Box,
@@ -12,28 +12,30 @@ import {
 import {DateRange, LocalizationProvider, DateRangePicker} from '@mui/x-date-pickers-pro';
 import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns';
 import locale from 'date-fns/locale/en-GB';
-import {RegionsT} from '../../constants/types';
+import {RegionsT, StatsT} from '../../constants/types';
 import {useSearchParams} from 'react-router-dom';
 import {format} from 'date-fns';
 import {mockRegionsData} from '../../constants/common';
 
 type FiltersBlockProps = {
+  stats: StatsT[];
   getStats: (dateFrom: Date, dateTo: Date, iso?: string) => void;
   regionsData: RegionsT[] | undefined;
   loading: boolean;
 };
 
-export const FiltersBlock: React.FC<FiltersBlockProps> = ({getStats, regionsData, loading}) => {
+export const FiltersBlock: React.FC<FiltersBlockProps> = ({stats, getStats, regionsData, loading}) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const dateFrom = new Date(searchParams.get('date_from') as string);
   const dateTo = new Date(searchParams.get('date_to') as string);
   const region = searchParams.get('region') as string;
 
-  // useEffect(() => {
-  //   if (searchParams.has('date_from') && searchParams.has('date_to')) {
-  //     getStats(dateFrom, dateTo, region);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!!stats.length) return;
+    if (searchParams.has('date_from') && searchParams.has('date_to')) {
+      getStats(dateFrom, dateTo, region);
+    }
+  }, []);
 
   const onChooseRegion = (event: SelectChangeEvent) => {
     searchParams.set('region', event.target.value);

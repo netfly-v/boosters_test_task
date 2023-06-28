@@ -32,7 +32,7 @@ export const Stats: React.FC = () => {
       <Typography variant="h6" gutterBottom>
         Choose chart parameters:
       </Typography>
-      <FiltersBlock getStats={getStats} regionsData={regions} loading={regionsLoading} />
+      <FiltersBlock stats={stats} getStats={getStats} regionsData={regions} loading={regionsLoading} />
       {stats.length ? (
         <ChartBlock stats={stats} labels={days} regionsData={regions} />
       ) : (
