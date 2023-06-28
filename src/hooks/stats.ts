@@ -14,6 +14,8 @@ export const useGetStats = () => {
     const filteredDaysArr =
       daysArr.length > MAX_REQ_LIMIT
         ? daysArr.reduce((acc: string[], el, idx) => {
+            //because we want last element to be always inside an array
+            //then array will contain 19 + last element = 20 requests (MAX_REQ_LIMIT)
             const step = daysArr.length / (MAX_REQ_LIMIT - 1);
 
             if (idx === Math.floor(acc.length * step) || idx === daysArr.length - 1) {
