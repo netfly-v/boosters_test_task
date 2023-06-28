@@ -1,13 +1,24 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Box, CircularProgress, Typography} from '@mui/material';
 import {useGetStats} from '../../hooks/stats';
 import {FiltersBlock} from './Filters';
 import {ChartBlock} from './Chart';
 import {useGetRegions} from '../../hooks/regions';
+import {useSearchParams} from 'react-router-dom';
 
 export const Stats: React.FC = () => {
+  const [searchParams] = useSearchParams();
   const {stats, days, getStats, loading} = useGetStats();
   const {regions, regionsLoading} = useGetRegions();
+  const dateFrom = new Date(searchParams.get('date_from') as string);
+  const dateTo = new Date(searchParams.get('date_to') as string);
+  const region = searchParams.get('region') as string;
+
+  useEffect(() => {
+    if (searchParams.has('date_from') && searchParams.has('date_to')) {
+      getStats(dateFrom, dateTo, region);
+    }
+  }, []);
 
   if (loading) {
     return (
@@ -32,8 +43,16 @@ export const Stats: React.FC = () => {
       <Typography variant="h6" gutterBottom>
         Choose chart parameters:
       </Typography>
-      <FiltersBlock stats={stats} getStats={getStats} regionsData={regions} loading={regionsLoading} />
-      {stats.length ? (
+      <FiltersBlock
+        stats={stats}
+        getStats={getStats}
+        regionsData={regions}
+        regionsLoading={regionsLoading}
+        dateFrom={dateFrom}
+        dateTo={dateTo}
+        region={region}
+      />
+      {stats.length && !loading ? (
         <ChartBlock stats={stats} labels={days} regionsData={regions} />
       ) : (
         <Typography
